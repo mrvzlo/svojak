@@ -1,0 +1,204 @@
+{
+  "categories": [
+    {
+      "name": "Лингвист",
+      "questions": [
+        {
+          "value": 200,
+          "text": "Grazie per essere venuti alla partita",
+          "isImage": false,
+          "answer": "Итальянский",
+          "answerImage": false
+        },
+        {
+          "value": 300,
+          "text": "Dziękujemy za przybycie na grę",
+          "isImage": false,
+          "answer": "Польский",
+          "answerImage": false
+        },
+        {
+          "value": 400,
+          "text": "תודה שבאתם למשחק",
+          "isImage": false,
+          "answer": "Иврит",
+          "answerImage": false
+        },
+        {
+          "value": 500,
+          "text": "Модификатор",
+          "isImage": false,
+          "answer": "Плюс на минус",
+          "answerImage": false
+        },
+        {
+          "value": 600,
+          "text": "게임에 와주셔서 감사합니다",
+          "isImage": false,
+          "answer": "Корейский",
+          "answerImage": false
+        }
+      ]
+    },
+    {
+      "name": "Крупные страны",
+      "questions": [
+        {
+          "value": 200,
+          "text": "Какая страна занимает наибольшую часть площади своего континента?",
+          "isImage": false,
+          "answer": "Австралия - 85%",
+          "answerImage": false
+        },
+        {
+          "value": 300,
+          "text": "В какой стране живёт больше всего людей?",
+          "isImage": false,
+          "answer": "Индия - 1.47 млрд.",
+          "answerImage": false
+        },
+        {
+          "value": 400,
+          "text": "Удвоение: <br>У какой страны больше всего часовых поясов?",
+          "isImage": false,
+          "answer": "Франция - 12",
+          "answerImage": false
+        },
+        {
+          "value": 500,
+          "text": "В какой стране больше всего озёр?",
+          "isImage": false,
+          "answer": "Канада - 880 тыс.",
+          "answerImage": false
+        },
+        {
+          "value": 600,
+          "text": "В какой стране больше всего эйфелевых башен?",
+          "isImage": false,
+          "answer": "США - 50",
+          "answerImage": false
+        }
+      ]
+    },
+    {
+      "name": "Плохой пересказ",
+      "questions": [
+        {
+          "value": 200,
+          "text": "Джонни Депп в треуголке бегает",
+          "isImage": false,
+          "answer": "Пираты карибского моря",
+          "answerImage": false
+        },
+        {
+          "value": 300,
+          "text": "Передача: <br>Сестра героини умирает во время вооружённого нападения, из-за чего ей приходится усыновить годовалого племянника, которого спустя 10 лет забирают в частное учебное заведение",
+          "isImage": false,
+          "answer": "Гарри Поттер",
+          "answerImage": false
+        },
+        {
+          "value": 400,
+          "text": "Учёный ворует ядерное топливо у террористов для модификации автомобиля, от смерти его спасает знакомый скейтер",
+          "isImage": false,
+          "answer": "Назад в будущее",
+          "answerImage": false
+        },
+        {
+          "value": 500,
+          "text": "Доктор исторических наук прячется в холодильнике",
+          "isImage": false,
+          "answer": "Индиана Джонс",
+          "answerImage": false
+        },
+        {
+          "value": 600,
+          "text": "Фильм который называется в честь собаки и музыканта",
+          "isImage": false,
+          "answer": "Бетховен",
+          "answerImage": false
+        }
+      ]
+    },
+    {
+      "name": "Напой",
+      "questions": [
+        {
+          "value": 200,
+          "text": "Модификатор",
+          "isImage": false,
+          "answer": "Забери 500",
+          "answerImage": false
+        },
+        {
+          "value": 300,
+          "text": "Из этого сделаны сны, кто я такой чтобы спорить",
+          "isImage": false,
+          "answer": "Sweet Dreams by Eurythmics",
+          "answerImage": false
+        },
+        {
+          "value": 400,
+          "text": "Я хочу сломать бесплатно лживые слова, ты самодовольный",
+          "isImage": false,
+          "answer": "I Want to Break Free by Queen",
+          "answerImage": false
+        },
+        {
+          "value": 500,
+          "text": "Мужчина после полуночи",
+          "isImage": false,
+          "answer": "Gimme Gimme Gimme by ABBA",
+          "answerImage": false
+        },
+        {
+          "value": 600,
+          "text": "Во-первых, во-первых, я скажу все слова из своей головы",
+          "isImage": false,
+          "answer": "Believer by Imagine Dragons",
+          "answerImage": false
+        }
+      ]
+    },
+    {
+      "name": "Что готовим",
+      "questions": [
+        {
+          "value": 200,
+          "text": "Что угодно на сковородку и яйцо сверху",
+          "isImage": false,
+          "answer": "Яичница",
+          "answerImage": false
+        },
+        {
+          "value": 300,
+          "text": "Огурец в рыбе, рыба в нори",
+          "isImage": false,
+          "answer": "Суши",
+          "answerImage": false
+        },
+        {
+          "value": 400,
+          "text": "Рис, баранина, морковь, укроп, изюм",
+          "isImage": false,
+          "answer": "Плов",
+          "answerImage": false
+        },
+        {
+          "value": 500,
+          "text": "Передача: <br>Капуста, морковка, красная вода",
+          "isImage": false,
+          "answer": "Борщ",
+          "answerImage": false
+        },
+        {
+          "value": 600,
+          "text": "Нут, масло, чеснок",
+          "isImage": false,
+          "answer": "Хумус",
+          "answerImage": false
+        }
+      ]
+    }
+  ]
+}
