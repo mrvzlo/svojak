@@ -6,37 +6,32 @@
         {
           "value": 200,
           "text": "Как называется совокупность действий, мер и средств, направленных на предотвращение, отражение или ослабление внешнего воздействия, угрозы либо нападения?",
-          "isImage": false,
-          "answer": "Оборона",
-          "answerImage": true
+
+          "answer": "Оборона"
         },
         {
           "value": 300,
           "text": "Передача: <br>Как называется узкая полосообразная часть материала, расположенная по краю предмета и образующая его ограничивающую или укрепляющую кромку?",
-          "isImage": false,
-          "answer": "Ободок",
-          "answerImage": false
+
+          "answer": "Ободок"
         },
         {
           "value": 400,
           "text": "Как называется физиологический процесс восприятия химических веществ, находящихся в воздухе, с помощью специализированных рецепторных клеток обонятельной системы?",
-          "isImage": false,
-          "answer": "Обоняние",
-          "answerImage": false
+
+          "answer": "Обоняние"
         },
         {
           "value": 500,
           "text": "Как называется выделение второстепенных членов предложения?",
-          "isImage": false,
-          "answer": "Обособление",
-          "answerImage": false
+
+          "answer": "Обособление"
         },
         {
           "value": 600,
           "text": "Как называется конструктивный элемент, предназначенное для удержания, объединения, фиксации и подачи нескольких однотипных объектов?",
-          "isImage": false,
-          "answer": "Обойма",
-          "answerImage": false
+
+          "answer": "Обойма"
         }
       ]
     },
@@ -46,37 +41,32 @@
         {
           "value": 200,
           "text": "удаР",
-          "isImage": false,
-          "answer": "Руда",
-          "answerImage": false
+
+          "answer": "Руда"
         },
         {
           "value": 300,
           "text": "лаСка",
-          "isImage": false,
-          "answer": "Скала",
-          "answerImage": false
+
+          "answer": "Скала"
         },
         {
           "value": 400,
           "text": "отвАр",
-          "isImage": false,
-          "answer": "Автор",
-          "answerImage": false
+
+          "answer": "Автор"
         },
         {
           "value": 500,
           "text": "Передача: <br>спАниель",
-          "isImage": false,
-          "answer": "Апельсин",
-          "answerImage": false
+
+          "answer": "Апельсин"
         },
         {
           "value": 600,
           "text": "Вениамин",
-          "isImage": false,
-          "answer": "Внимание",
-          "answerImage": false
+
+          "answer": "Внимание"
         }
       ]
     },
@@ -86,37 +76,32 @@
         {
           "value": 200,
           "text": "Какие бывают полюса планеты?",
-          "isImage": false,
-          "answer": "Южный, Северный",
-          "answerImage": false
+
+          "answer": "Южный, Северный"
         },
         {
           "value": 300,
           "text": "В каких цветах было первое кино?",
-          "isImage": false,
-          "answer": "Чёрно-белое",
-          "answerImage": false
+
+          "answer": "Чёрно-белое"
         },
         {
           "value": 400,
           "text": "Модификатор",
-          "isImage": false,
-          "answer": "Плюс 400 просто так",
-          "answerImage": false
+
+          "answer": "Плюс 400 просто так"
         },
         {
           "value": 500,
           "text": "Какая планета солнечной системы не имеет спутников?",
-          "isImage": false,
-          "answer": "Венера, Меркурий",
-          "answerImage": false
+
+          "answer": "Венера, Меркурий"
         },
         {
           "value": 600,
           "text": "Январский знак зодиака",
-          "isImage": false,
-          "answer": "Водолей, Козерог",
-          "answerImage": false
+
+          "answer": "Водолей, Козерог"
         }
       ]
     },
@@ -126,37 +111,32 @@
         {
           "value": 200,
           "text": "π",
-          "isImage": false,
-          "answer": "Пи",
-          "answerImage": false
+
+          "answer": "Пи"
         },
         {
           "value": 300,
           "text": "λ",
-          "isImage": false,
-          "answer": "Лямбда",
-          "answerImage": false
+
+          "answer": "Лямбда"
         },
         {
           "value": 400,
           "text": "ѣ",
-          "isImage": false,
-          "answer": "Ять",
-          "answerImage": false
+
+          "answer": "Ять"
         },
         {
           "value": 500,
           "text": "ß",
-          "isImage": false,
-          "answer": "Эсцет",
-          "answerImage": false
+
+          "answer": "Эсцет"
         },
         {
           "value": 600,
           "text": "Передача: <br>え",
-          "isImage": false,
-          "answer": "Эээ",
-          "answerImage": false
+
+          "answer": "Эээ"
         }
       ]
     },
@@ -166,37 +146,32 @@
         {
           "value": 200,
           "text": "Удвоение: Сколько полевых игроков в хоккейной команде?",
-          "isImage": false,
-          "answer": "6",
-          "answerImage": false
+
+          "answer": "6"
         },
         {
           "value": 300,
           "text": "Что на поле выдерживает больше всего ударов в течение одной игры?",
-          "isImage": false,
-          "answer": "Лёд",
-          "answerImage": false
+
+          "answer": "Лёд"
         },
         {
           "value": 400,
           "text": "Какое минимальное время, на которое можно удалить игрока за нарушение в игре?",
-          "isImage": false,
-          "answer": "2 минуты",
-          "answerImage": false
+
+          "answer": "2 минуты"
         },
         {
           "value": 500,
           "text": "Кто из них известный японский хоккеист?<br> Фусигисо / Фукуфудзи / Фусигибана",
-          "isImage": false,
-          "answer": "Фукуфудзи",
-          "answerImage": false
+
+          "answer": "Фукуфудзи"
         },
         {
           "value": 600,
           "text": "Опрос: <br>Самый быстрый хет-трик в истории НХЛ?",
-          "isImage": false,
-          "answer": "22 секунды",
-          "answerImage": false
+
+          "answer": "22 секунды"
         }
       ]
     }

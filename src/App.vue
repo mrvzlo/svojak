@@ -51,12 +51,10 @@
     <div v-if="activeQuestion" class="question-overlay" role="dialog" aria-modal="true" @click.self="closeQuestion">
       <section class="question-dialog">
         <button v-if="!showingAnswer" class="question-card" type="button" @click="revealAnswer">
-          <img v-if="activeQuestion.isImage" class="question-image" :src="activeQuestion.text" />
-          <span v-else class="question-copy">{{ activeQuestion.text }}</span>
+          <span class="question-copy">{{ activeQuestion.text }}</span>
         </button>
         <div v-else class="answer-card">
-          <img v-if="activeQuestion.answerImage" class="question-image" :src="activeQuestion.answer" />
-          <p v-else class="question-copy">{{ activeQuestion.answer }}</p>
+          <p class="question-copy">{{ activeQuestion.answer }}</p>
         </div>
       </section>
     </div>
