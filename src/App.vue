@@ -1,6 +1,9 @@
 <template>
   <main class="game-shell">
     <section class="board-wrap" aria-label="Игровое поле">
+      <div class="board-toolbar">
+        <button class="retry-button" type="button" @click="openFileDialog">Загрузить вопросы</button>
+      </div>
       <div v-if="loadError" class="load-error" role="alert">
         <strong>Не удалось загрузить игру</strong>
         <span>{{ loadError }}</span>
@@ -17,16 +20,39 @@
             :key="question.value"
             class="question-cell"
             :class="{ 'is-used': question.used }"
-            :disabled="question.used"
             type="button"
             @click="openQuestion(category, question)"
           >
-            <span v-if="question.used"></span>
+            <span v-if="question.used">-</span>
             <span v-else>{{ question.value }}</span>
           </button>
         </div>
       </div>
     </section>
+
+    <div v-if="isFileDialogOpen" class="file-dialog-backdrop" @click.self="closeFileDialog">
+      <section class="file-dialog" role="dialog" aria-modal="true" aria-labelledby="file-dialog-title">
+        <h2 id="file-dialog-title">Загрузить вопросы</h2>
+        <form @submit.prevent="submitFileName">
+          <label for="questions-file-name">Имя файла</label>
+          <input
+            id="questions-file-name"
+            v-model="fileNameInput"
+            type="text"
+            placeholder="Например, r2 или r2.json"
+            autocomplete="off"
+            required
+          />
+          <p v-if="fileNameError" class="file-dialog-error" role="alert">{{ fileNameError }}</p>
+          <div class="file-dialog-actions">
+            <button class="retry-button" type="button" :disabled="isLoading" @click="closeFileDialog">Отмена</button>
+            <button class="retry-button" type="submit" :disabled="isLoading">
+              {{ isLoading ? "Загрузка…" : "Загрузить" }}
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
 
     <footer class="players-section">
       <div class="players-grid">
@@ -44,20 +70,23 @@
               <input :id="`player-score-${index}`" v-model.number="player.score" type="number" step="100" />
             </div>
           </div>
+          <div class="score-adjustments">
+            <button type="button" @click="adjustScore(player, 100)">+</button>
+            <button type="button" @click="adjustScore(player, -100)">−</button>
+          </div>
         </section>
       </div>
     </footer>
 
-    <div v-if="activeQuestion" class="question-overlay" role="dialog" aria-modal="true" @click.self="closeQuestion">
-      <section class="question-dialog">
-        <button v-if="!showingAnswer" class="question-card" type="button" @click="revealAnswer">
-          <span class="question-copy">{{ activeQuestion.text }}</span>
-        </button>
-        <div v-else class="answer-card">
-          <p class="question-copy">{{ activeQuestion.answer }}</p>
-        </div>
-      </section>
-    </div>
+    <section v-if="activeQuestion" class="question-dialog" role="dialog" aria-modal="true">
+      <button v-if="!showingAnswer" class="question-card" type="button" @click="revealAnswer">
+        <div class="special" v-if="activeQuestion.special">{{ activeQuestion.special }}</div>
+        <span class="question-copy" :class="{ 'is-short': isShortValue(activeQuestion.text) }" v-html="activeQuestion.text"></span>
+      </button>
+      <div v-else class="answer-card" @click="openQuestion(null, null)">
+        <p class="question-copy" :class="{ 'is-short': isShortValue(activeQuestion.answer) }">{{ activeQuestion.answer }}</p>
+      </div>
+    </section>
   </main>
 </template>
 
@@ -76,20 +105,45 @@ export default {
       players: defaultPlayers(),
       isLoading: true,
       loadError: "",
+      isFileDialogOpen: false,
+      fileNameInput: "r1",
+      fileNameError: "",
+      questionsFileName: "r1",
       activeCategory: null,
       activeQuestion: null,
       showingAnswer: false,
     };
   },
   mounted() {
-    this.loadQuestions();
+    this.loadQuestions("r1");
   },
   methods: {
-    async loadQuestions() {
+    openFileDialog() {
+      this.fileNameInput = this.questionsFileName;
+      this.fileNameError = "";
+      this.isFileDialogOpen = true;
+    },
+    closeFileDialog() {
+      this.isFileDialogOpen = false;
+      this.fileNameError = "";
+    },
+    async submitFileName() {
+      const fileName = this.fileNameInput.trim().replace(/\.json$/i, "");
+      if (!/^[\w-]+$/.test(fileName)) {
+        this.fileNameError = "Введите имя файла без пути и специальных символов.";
+        return;
+      }
+
+      this.fileNameError = "";
+      this.questionsFileName = fileName;
+      await this.loadQuestions(fileName);
+      this.closeFileDialog();
+    },
+    async loadQuestions(name = this.questionsFileName) {
       this.isLoading = true;
       this.loadError = "";
       try {
-        const response = await fetch(`${process.env.BASE_URL}questions.json`);
+        const response = await fetch(`${process.env.BASE_URL}${name}.json`);
         const data = await response.json();
         this.categories = data.categories.map((category) => ({
           ...category,
@@ -102,14 +156,23 @@ export default {
       }
     },
     openQuestion(category, question) {
-      if (question.used) return;
-      question.used = true;
+      if (question) question.used = true;
       this.activeCategory = category;
       this.activeQuestion = question;
       this.showingAnswer = false;
     },
     revealAnswer() {
       this.showingAnswer = true;
+    },
+    adjustScore(player, amount) {
+      player.score = (Number(player.score) || 0) + amount;
+    },
+    isShortValue(value) {
+      return (
+        String(value)
+          .replace(/<[^>]*>/g, "")
+          .trim().length < 40
+      );
     },
     closeQuestion() {
       this.activeQuestion = null;
@@ -122,6 +185,7 @@ export default {
 
 <style>
 :root {
+  touch-action: pan-x pan-y;
   font-family: "DM Sans", sans-serif;
   color: #f3f0e9;
   background: #101210;
@@ -144,8 +208,9 @@ export default {
 
 body {
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
+  overflow: hidden;
   background: radial-gradient(ellipse at 74% 0%, rgba(116, 135, 57, 0.09), transparent 31rem), #101210;
 }
 
@@ -181,6 +246,11 @@ h1 span {
   min-height: 276px;
   margin-top: 8px;
 }
+.board-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
 .game-board {
   padding: 0 14px;
   border: 1px solid var(--line);
@@ -195,7 +265,7 @@ h1 span {
   gap: 8px;
 }
 .category-row {
-  min-height: 100px;
+  min-height: 90px;
 }
 .category-row:not(:first-child) {
   border-top: 1px solid var(--line);
@@ -205,13 +275,13 @@ h1 span {
   align-items: center;
   gap: 11px;
   color: #e8e8df;
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 600;
 }
 .question-cell {
   position: relative;
   display: grid;
-  min-height: 80px;
+  min-height: 70px;
   place-items: center;
   align-self: center;
   padding: 0;
@@ -224,6 +294,9 @@ h1 span {
   font-size: 32px;
   font-weight: 700;
   transition: background 0.16s ease, border-color 0.16s ease, transform 0.16s ease, color 0.16s ease;
+}
+.is-short {
+  font-size: 100px !important;
 }
 .question-cell:not(:disabled):hover {
   transform: translateY(-2px);
@@ -268,6 +341,66 @@ h1 span {
   color: var(--accent);
   cursor: pointer;
   font-size: 11px;
+}
+.retry-button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+.file-dialog-backdrop {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(7, 9, 7, 0.82);
+  backdrop-filter: blur(7px);
+}
+.file-dialog {
+  width: min(420px, 100%);
+  padding: 24px;
+  border: 1px solid rgba(235, 239, 223, 0.14);
+  border-radius: 14px;
+  background: #191c18;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.48);
+}
+.file-dialog h2 {
+  margin-bottom: 18px;
+}
+.file-dialog form,
+.file-dialog label {
+  display: block;
+}
+.file-dialog label {
+  margin-bottom: 7px;
+  color: #a5a89e;
+  font-size: 13px;
+}
+.file-dialog input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  outline: none;
+  background: var(--surface-raised);
+  color: #f3f0e9;
+}
+.file-dialog input:focus {
+  border-color: var(--accent);
+}
+.file-dialog-error {
+  margin: 10px 0 0;
+  color: #ff9a91;
+  font-size: 13px;
+}
+.file-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
+}
+.file-dialog-actions .retry-button {
+  margin: 0;
 }
 
 .players-section {
@@ -324,6 +457,32 @@ h2 span {
   justify-content: space-between;
   padding-top: 12px;
 }
+.score-adjustments {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 8px;
+}
+.score-adjustments button {
+  width: 50px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface-raised);
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+}
+.score-adjustments button:hover {
+  border-color: var(--accent);
+  background: #292d34;
+}
+.score-adjustments button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 .score-row > label {
   color: #777b70;
   font-size: 8px;
@@ -362,35 +521,19 @@ h2 span {
   font-size: 9px;
 }
 
-.question-overlay {
+.question-dialog {
   position: fixed;
   z-index: 5;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  padding: 20px;
-  background: rgba(7, 9, 7, 0.82);
-  backdrop-filter: blur(7px);
-}
-.question-dialog {
-  width: min(630px, 100%);
+  top: 20px;
+  left: 20px;
+  width: calc(100% - 40px);
   overflow: hidden;
   border: 1px solid rgba(235, 239, 223, 0.14);
   border-radius: 14px;
   background: #191c18;
   box-shadow: 0 30px 100px rgba(0, 0, 0, 0.48);
-  animation: dialog-in 0.2s ease-out;
 }
-@keyframes dialog-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px) scale(0.99);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+
 .close-button {
   display: grid;
   width: 30px;
@@ -412,7 +555,7 @@ h2 span {
 .answer-card {
   display: flex;
   width: 100%;
-  min-height: 305px;
+  min-height: 80dvh;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -421,7 +564,14 @@ h2 span {
   background: transparent;
   color: #f3f0e9;
   text-align: center;
+  position: relative;
 }
+.question-card .special {
+  top: 10px;
+  left: 10px;
+  color: #dc5;
+}
+
 .question-card {
   cursor: pointer;
 }
@@ -432,17 +582,6 @@ h2 span {
   font-weight: 500;
   letter-spacing: -0.8px;
   line-height: 1.4;
-}
-.question-image {
-  display: block;
-  max-width: 100%;
-  max-height: 290px;
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-.answer-card {
-  min-height: 305px;
 }
 
 @media (max-width: 720px) {
@@ -478,15 +617,6 @@ h2 span {
   }
   .score-row {
     padding-top: 9px;
-  }
-}
-
-@media (max-width: 420px) {
-  .game-shell {
-    width: calc(100% - 24px);
-  }
-  .board-wrap {
-    margin-right: -12px;
   }
 }
 
